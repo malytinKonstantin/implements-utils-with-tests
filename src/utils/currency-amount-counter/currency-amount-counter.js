@@ -24,9 +24,13 @@ export const NOMINALS = ['100', '200', '500', '1000', '2000', '5000']
 
 export default function currencyAmountCounter(nominals, money) {
 
-    if (!isObject(nominals) || !Number.isInteger(money)) return null
-
-    if (!NOMINALS.contains(Object.keys(nominals))) return null
+    if (
+        !isObject(nominals) || 
+        !Number.isInteger(money) || 
+        !NOMINALS.contains(Object.keys(nominals))
+    ) {
+        return null
+    }
 
     const noninalSrc = nominalEntrySeq(nominals)
 
