@@ -13,5 +13,5 @@ export default function contains(arr) {
         return false
     }
 
-    return arr.every(isContains)
+    return Array.from(new Set(arr)).every(isContains)
 }
