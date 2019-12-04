@@ -13,11 +13,11 @@ export const isObject = (item) => {
     return item.constructor === Object
 }
 
+export const compareDesc = (a, b) => b.nominal - a.nominal
+
 export const nominalEntrySeq = (nominals) => Object.entries(nominals)
     .map(([nominal, amount]) => ({ nominal: Number(nominal), amount }))
     .sort(compareDesc)
-
-export const compareDesc = (a, b) => b.nominal - a.nominal
 
 export const NOMINALS = ['100', '200', '500', '1000', '2000', '5000']
 
