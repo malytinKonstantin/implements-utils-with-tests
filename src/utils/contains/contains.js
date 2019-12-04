@@ -3,6 +3,9 @@
 
 // Пример (псевдо): [1, 4, 7, 2, 0].contains([4, 0])  // true
 
+
+Array.prototype.contains = contains
+
 export default function contains(arr) {
     const isContains = el => this.includes(el)
     
@@ -12,5 +15,3 @@ export default function contains(arr) {
 
     return arr.every(isContains)
 }
-
-Array.prototype.contains = contains
