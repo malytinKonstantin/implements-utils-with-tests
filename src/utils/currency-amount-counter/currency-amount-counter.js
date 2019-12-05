@@ -40,8 +40,10 @@ export default function currencyAmountCounter(nominals, money) {
         const nominalsAmountByEmpty = Object.assign(nominalsAmount, { [item.nominal]: 0 })
         
         // если номинал купюры превышает значение остатка
-        if (item.nominal > remainder) return { remainder, nominalsAmount: nominalsAmountByEmpty }
-
+        if (item.nominal > remainder) {
+            return { remainder, nominalsAmount: nominalsAmountByEmpty }
+        }
+        
         const div = Math.trunc(remainder / item.nominal)
         // count - количество купюр по номининалу item.amount
         const count = Math.min(item.amount, div)
