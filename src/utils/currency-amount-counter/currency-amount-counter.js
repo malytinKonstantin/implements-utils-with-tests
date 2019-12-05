@@ -23,7 +23,7 @@ export const NOMINALS = ['100', '200', '500', '1000', '2000', '5000']
 
 
 export default function currencyAmountCounter(nominals, money) {
-
+    // проверка на валидность агрументов
     if (
         !isObject(nominals) || 
         !Number.isInteger(money) || 
@@ -38,10 +38,12 @@ export default function currencyAmountCounter(nominals, money) {
         const { remainder, nominalsAmount } = acc
 
         const nominalsAmountByEmpty = Object.assign(nominalsAmount, { [item.nominal]: 0 })
-
+        
+        // если номинал купюры превышает значение остатка
         if (item.nominal > remainder) return { remainder, nominalsAmount: nominalsAmountByEmpty }
 
         const div = Math.trunc(remainder / item.nominal)
+        // count - количество купюр по номининалу item.amount
         const count = Math.min(item.amount, div)
         const nextRemainder = remainder - item.nominal * count
         const nextNominalsAmount = Object.assign(nominalsAmount, { [item.nominal]: count })
