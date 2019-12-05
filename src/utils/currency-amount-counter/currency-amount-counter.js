@@ -35,6 +35,8 @@ export default function currencyAmountCounter(nominals, money) {
     }
 
 		const noninalSrc = nominalEntrySeq(nominals)
+		
+		const initialCounter = { remainder: money, nominalsAmount: initialNominalsAmount }
 
     const { nominalsAmount, remainder } = noninalSrc.reduce((acc, item) => {
 				const { remainder, nominalsAmount } = acc
@@ -48,8 +50,8 @@ export default function currencyAmountCounter(nominals, money) {
         const nextRemainder = remainder - item.nominal * count
         const nextNominalsAmount = Object.assign(nominalsAmount, { [item.nominal]: count })
 
-        return { remainder: nextRemainder, nominalsAmount: nextNominalsAmount }
-    }, { remainder: money, nominalsAmount: initialNominalsAmount })
+				return { remainder: nextRemainder, nominalsAmount: nextNominalsAmount }
+    }, initialCounter)
 
     if (remainder !== 0) console.warn(`Извините. Банкомат не может выдать сумму ${remainder}!`)
 
