@@ -41,8 +41,8 @@ export default function currencyAmountCounter(nominals, money) {
 
         if (item.nominal > remainder) return { remainder, nominalsAmount: nominalsAmountByEmpty }
 
-        const div = parseInt(remainder / item.nominal)
-        const count = div > item.amount ? item.amount : div
+        const div = Math.trunc(remainder / item.nominal)
+        const count = Math.min(item.amount, div)
         const nextRemainder = remainder - item.nominal * count
         const nextNominalsAmount = Object.assign(nominalsAmount, { [item.nominal]: count })
 
