@@ -1,4 +1,5 @@
 import '../contains'
+import { NOMINALS, isObject, nominalEntrySeq, getInitialNominalsAmount } from './utils'
 
 // Есть 4 кассеты с купюрами номиналов 5000, 1000, 200, 100. Необходимо представить данными купюрами разбиение заданной суммы.
 // Условия:
@@ -6,22 +7,6 @@ import '../contains'
 // а также разбиваемая сумма в виде числа (например 93200).
 // На выходе: оптимальное, с точки зрения использования купюр, разбиение в формате amount = n0 * c0 + n1 * c1 + ... 
 // (например: 700 = 3 * 200 + 1 * 100, но не 700 = 5 * 100 + 1 * 200, при { "100": 5, "200": 10, "1000": 3, "5000": 1})
-
-
-export const isObject = (item) => {
-		if (!item) return false
-    return item.constructor === Object
-}
-
-export const compareDesc = (a, b) => b.nominal - a.nominal
-
-export const nominalEntrySeq = (nominals) => Object.entries(nominals)
-    .map(([nominal, amount]) => ({ nominal: Number(nominal), amount }))
-		.sort(compareDesc)
-	
-export const NOMINALS = ['100', '200', '500', '1000', '2000', '5000']
-
-export const getInitialNominalsAmount = (nominals) => nominals.reduce((acc, item) => (acc[item] = 0, acc), {})
 
 
 export default function currencyAmountCounter(nominals, money) {
