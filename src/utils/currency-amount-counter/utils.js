@@ -1,7 +1,7 @@
 export const NOMINALS = ['100', '200', '500', '1000', '2000', '5000']
 
 export const isObject = (item) => {
-		if (!item) return false
+	if (!item) return false
     return item.constructor === Object
 }
 
