@@ -21,7 +21,7 @@ export const nominalEntrySeq = (nominals) => Object.entries(nominals)
 	
 export const NOMINALS = ['100', '200', '500', '1000', '2000', '5000']
 
-export const initialNominalsAmount = NOMINALS.reduce((acc, item) => (acc[item] = 0, acc), {})
+export const getInitialNominalsAmount = (nominals) => nominals.reduce((acc, item) => (acc[item] = 0, acc), {})
 
 
 export default function currencyAmountCounter(nominals, money) {
@@ -34,11 +34,12 @@ export default function currencyAmountCounter(nominals, money) {
         return null
     }
 
-		const noninalSrc = nominalEntrySeq(nominals)
-		
+    const nominalSrc = nominalEntrySeq(nominals)
+    const initialNominalsAmount = getInitialNominalsAmount(NOMINALS)
+
 		const initialCounter = { remainder: money, nominalsAmount: initialNominalsAmount }
 
-    const { nominalsAmount, remainder } = noninalSrc.reduce((acc, item) => {
+    const { nominalsAmount, remainder } = nominalSrc.reduce((acc, item) => {
 				const { remainder, nominalsAmount } = acc
 				
         // если номинал купюры превышает значение остатка

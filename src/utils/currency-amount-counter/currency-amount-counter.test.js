@@ -20,8 +20,8 @@ it('test currency-amount-counter utility', () => {
 
     expect(currencyAmountCounter(nominals, 3800)).toEqual({ 5000: 0, 2000: 1, 1000: 1, 500: 1, 200: 1, 100: 1 })
 
-    expect(currencyAmountCounter({ 100: 10, 200: 0, 1000: 0 }, 500)).toEqual({ 100: 5, 200: 0, 1000: 0 })
+    expect(currencyAmountCounter({ 100: 10, 200: 0, 1000: 0 }, 500)).toEqual({ 100: 5, 200: 0, 500: 0, 1000: 0, 2000: 0, 5000: 0 })
 
     // выведет в консоль сообщение о нехватке купюр номиналом 200  
-    expect(currencyAmountCounter({ 100: 1, 200: 3, 1000: 0 }, 900)).toEqual({ 100: 1, 200: 3, 1000: 0 })
+    expect(currencyAmountCounter({ 100: 1, 200: 3, 1000: 0 }, 900)).toEqual({ 100: 1, 200: 3, 500: 0, 1000: 0, 2000: 0, 5000: 0 })
 })
