@@ -9,7 +9,7 @@ import '../contains'
 
 
 export const isObject = (item) => {
-    if (!item) return false
+		if (!item) return false
     return item.constructor === Object
 }
 
@@ -17,9 +17,11 @@ export const compareDesc = (a, b) => b.nominal - a.nominal
 
 export const nominalEntrySeq = (nominals) => Object.entries(nominals)
     .map(([nominal, amount]) => ({ nominal: Number(nominal), amount }))
-    .sort(compareDesc)
-
+		.sort(compareDesc)
+	
 export const NOMINALS = ['100', '200', '500', '1000', '2000', '5000']
+
+export const initialNominalsAmount = NOMINALS.reduce((acc, item) => (acc[item] = 0, acc), {})
 
 
 export default function currencyAmountCounter(nominals, money) {
@@ -32,20 +34,13 @@ export default function currencyAmountCounter(nominals, money) {
         return null
     }
 
-    const noninalSrc = nominalEntrySeq(nominals)
+		const noninalSrc = nominalEntrySeq(nominals)
 
     const { nominalsAmount, remainder } = noninalSrc.reduce((acc, item) => {
-        const { remainder, nominalsAmount } = acc
-
-        const nominalsAmountByEmpty = Object.assign(nominalsAmount, { [item.nominal]: 0 })
-        
+				const { remainder, nominalsAmount } = acc
+				
         // если номинал купюры превышает значение остатка
-        if (item.nominal > remainder) {
-            return { 
-                remainder, 
-                nominalsAmount: nominalsAmountByEmpty
-            }
-        }
+        if (item.nominal > remainder) return acc
 
         const div = Math.trunc(remainder / item.nominal)
         // count - количество купюр по номининалу item.amount
@@ -53,11 +48,8 @@ export default function currencyAmountCounter(nominals, money) {
         const nextRemainder = remainder - item.nominal * count
         const nextNominalsAmount = Object.assign(nominalsAmount, { [item.nominal]: count })
 
-        return { 
-            remainder: nextRemainder, 
-            nominalsAmount: nextNominalsAmount
-        }
-    }, { remainder: money, nominalsAmount: {} })
+        return { remainder: nextRemainder, nominalsAmount: nextNominalsAmount }
+    }, { remainder: money, nominalsAmount: initialNominalsAmount })
 
     if (remainder !== 0) console.warn(`Извините. Банкомат не может выдать сумму ${remainder}!`)
 
