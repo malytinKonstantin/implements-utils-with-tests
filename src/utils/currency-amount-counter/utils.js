@@ -11,5 +11,5 @@ export const nominalEntrySeq = (nominals) => Object.entries(nominals)
     .map(([nominal, amount]) => ({ nominal: Number(nominal), amount }))
 	.sort(compareDesc)
 
-export const getInitialNominalsAmount = (nominals) => nominals.reduce((acc, item) => (acc[item] = 0, acc), {})
-
+export const getInitialNominalsAmount = (nominals) => 
+    nominals.reduce((acc, item) => (acc[item] = 0, acc), {})
